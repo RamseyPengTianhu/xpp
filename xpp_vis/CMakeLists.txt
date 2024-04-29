@@ -33,7 +33,7 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
 )
-
+include_directories(/home/tianhu/TO/src/xpp/robots/xpp_hyq/include/xpp_hyq)
 # Declare a C++ library
 add_library(${PROJECT_NAME}
   src/urdf_visualizer.cc

@@ -91,6 +91,19 @@ Joints::ToVec () const
   return ToVec(GetEEsOrdered());
 }
 
+std::vector<double> Joints::ToStd() const {
+  std::vector<double> joint_values;
+  joint_values.reserve(n_joints_);
+
+  for (auto ee : GetEEsOrdered()) {
+    for (int j = 0; j < n_joints_per_leg_; ++j) {
+      joint_values.push_back(at(ee)[j]);
+    }
+  }
+
+  return joint_values;
+}
+
 void
 Joints::SetFromVec (const VectorXd& q)
 {

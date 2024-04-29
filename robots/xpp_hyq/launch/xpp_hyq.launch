@@ -5,7 +5,7 @@
   </node>
   
   <!-- Launch rviz with specific configuration -->
-  <node name="rviz_xpp" pkg="rviz" type="rviz"  args="-d $(find xpp_hyq)/rviz/xpp_hyq.rviz">
+  <node name="rviz_xpp" pkg="rviz" type="rviz"  args="-d $(find xpp)/robots/xpp_hyq/rviz/xpp_hyq.rviz">
   </node>
   
   <!--  Launches all visualizers that use HyQ legs  --> 

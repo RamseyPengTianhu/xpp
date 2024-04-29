@@ -35,10 +35,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <xpp_msgs/StateLin3d.h>
 #include <xpp_msgs/State6d.h>
 #include <xpp_msgs/RobotStateCartesian.h>
+#include <xpp_msgs/RobotStateJoint.h>
 #include <xpp_msgs/RobotStateCartesianTrajectory.h>
 
 #include <xpp_states/state.h>
+#include <xpp_states/joints.h>
 #include <xpp_states/robot_state_cartesian.h>
+#include <xpp_states/robot_state_joint.h>
 
 namespace xpp {
 
@@ -145,6 +148,8 @@ ToRos(const Eigen::Quaterniond xpp)
   return ros;
 }
 
+
+
 static xpp_msgs::State6d
 ToRos(const State3d& xpp)
 {
@@ -193,6 +198,36 @@ ToRos(const RobotStateCartesian& xpp)
 
   return ros;
 }
+
+
+// Assuming Joints has 'q_' and 'qd_' members representing joint positions and velocities
+
+static sensor_msgs::JointState ToRos(const Joints& xpp1,const Joints& xpp2)
+{
+  sensor_msgs::JointState msg;
+
+
+  msg.position = xpp1.ToStd();
+  msg.velocity = xpp2.ToStd();
+
+
+  return msg;
+}
+
+// Assuming xpp_joint.q_ and xpp_joint.qd_ are objects of type Joints
+static xpp_msgs::RobotStateJoint ToRos(const RobotStateJoint& xpp_joint)
+{
+  xpp_msgs::RobotStateJoint ros;
+
+  // Assuming ToRos is a function that converts a Joints object to sensor_msgs::JointState
+  ros.joint_state = ToRos(xpp_joint.q_,xpp_joint.qd_);
+  // ros.joint_state = VelToRos(xpp_joint.qd_);
+
+  // You might also need to fill other fields of xpp_msgs::RobotStateJoint if applicable
+
+  return ros;
+}
+
 
 static RobotStateCartesian
 ToXpp(const xpp_msgs::RobotStateCartesian& ros)

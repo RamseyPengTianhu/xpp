@@ -1,0 +1,12 @@
+<launch>
+    <arg name="gui" default="False" />
+    <arg name="stl_color" default="green" />
+    <param name="a1_rviz_urdf_robot_description" command="$(find xacro)/xacro --inorder '$(find xpp_hyq)/urdf/a1.urdf'"/>
+
+    <param name="use_gui" value="$(arg gui)"/>
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+    <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find penguin_description)/penguin.rviz"/> -->
+    <node name="rviz_xpp" pkg="rviz" type="rviz" args="-d $(find towr_ros)/rviz/xpp_towr.rviz">
+    </node>
+</launch>

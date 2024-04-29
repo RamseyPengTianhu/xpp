@@ -82,6 +82,7 @@ public:
    * the joints are appended in the order they where inserted.
    */
   VectorXd ToVec() const;
+  std::vector<double> ToStd() const;
 
   /**
    * @brief Converts joint values to Eigen vector according to specific order.
