@@ -1,14 +1,9 @@
-/******************************************************************************
-Copyright (c) 2017, Alexander W. Winkler. All rights reserved.
-
-
- */
-#ifndef XPP_VIS_INVERSEKINEMATICS_A1_H_
-#define XPP_VIS_INVERSEKINEMATICS_A1_H_
+#ifndef XPP_VIS_INVERSEKINEMATICS_A1_BIPED_H_
+#define XPP_VIS_INVERSEKINEMATICS_A1_BIPED_H_
 
 #include <xpp_vis/inverse_kinematics.h>
-// #include <xpp_hyq/A1leg_inverse_kinematics.h>
-#include "/home/tianhu/TO/src/xpp/robots/xpp_hyq/include/xpp_hyq/A1leg_inverse_kinematics.h"
+#include <xpp_hyq/A1leg_inverse_kinematics.h>
+// #include "/home/tianhu/TO/src/xpp/robots/xpp_hyq/include/xpp_hyq/A1leg_inverse_kinematics.h"
 #include "/home/tianhu/TO/src/xpp/robots/xpp_hyq/include/xpp_hyq/hyqleg_inverse_kinematics.h"
 
 namespace xpp
@@ -17,11 +12,11 @@ namespace xpp
   /**
    * @brief Inverse kinematics function for the HyQ robot.
    */
-  class InverseKinematicsA1 : public InverseKinematics
+  class InverseKinematicsA1Biped : public InverseKinematics
   {
   public:
-    InverseKinematicsA1() = default;
-    virtual ~InverseKinematicsA1() = default;
+    InverseKinematicsA1Biped() = default;
+    virtual ~InverseKinematicsA1Biped() = default;
 
     /**
      * @brief Returns joint angles to reach for a specific foot position.
@@ -36,7 +31,7 @@ namespace xpp
 
   private:
     Vector3d base2hip_LF_ = Vector3d(0.1805, 0.135, 0.0);
-    int robot_type = 4;
+    int robot_type = 5;
 
     // HyqlegInverseKinematics leg;
     A1legInverseKinematics leg;

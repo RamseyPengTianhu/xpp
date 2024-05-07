@@ -28,7 +28,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
 // #include <xpp_hyq/inverse_kinematics_a1.h>
-#include "xpp_hyq/include/xpp_hyq/inverse_kinematics_a1.h"
+// #include "xpp_hyq/include/xpp_hyq/inverse_kinematics_a1_biped.h"
+#include <xpp_hyq/inverse_kinematics_a1_biped.h>
 
 #include <xpp_states/cartesian_declarations.h>
 #include <xpp_states/endeffector_mappings.h>
@@ -37,13 +38,16 @@ namespace xpp
 {
 
   Joints
-  InverseKinematicsA1::GetAllJointAngles(const EndeffectorsPos &x_B) const
+  InverseKinematicsA1Biped::GetAllJointAngles(const EndeffectorsPos &x_B) const
   {
     Vector3d ee_pos_H; // foothold expressed in hip frame
+
     std::vector<Eigen::VectorXd> q_vec;
 
     // make sure always exactly 4 elements
     auto pos_B = x_B.ToImpl();
+    // using namespace biped;
+    // pos_B.resize(2, pos_B.front());
     pos_B.resize(4, pos_B.front());
 
     for (int ee = 0; ee < pos_B.size(); ++ee)
@@ -73,9 +77,11 @@ namespace xpp
         break;
       }
       ee_pos_H -= base2hip_LF_;
+      // q_vec.push_back(leg.GetJointAngles(ee_pos_H, bend));
       q_vec.push_back(leg.GetJointAngles(ee_pos_H, bend, ee, robot_type));
     }
-
+    // q_vec.push_back(leg.GetJointAngles(pos_B.at(L)));
+    // q_vec.push_back(leg.GetJointAngles(pos_B.at(R)));
     return Joints(q_vec);
   }
 

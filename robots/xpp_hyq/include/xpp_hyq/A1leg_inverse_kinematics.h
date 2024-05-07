@@ -67,7 +67,7 @@ namespace xpp
          * @param hip_id  Foot position xyz expressed in the frame attached
          * at the hip-aa (H).
          */
-        Vector3d GetJointAngles(const Vector3d &ee_pos_H, KneeBend bend = Forward, int hip_id = 0) const;
+        Vector3d GetJointAngles(const Vector3d &ee_pos_H, KneeBend bend = Forward, int hip_id = 0, int robot_type = 4) const;
 
         /**
          * @brief Restricts the joint angles to lie inside the feasible range
@@ -76,11 +76,15 @@ namespace xpp
          * @param joint  Which joint (HAA, HFE, KFE) this value represents.
          */
         void EnforceLimits(double &q, A1JointID joint) const;
+        Vector3d ForwardKinematics(Eigen::Matrix<double, 3, 1> joint_angles, int hip_id, int robot_type) const;
+        ;
 
     private:
         double hip_length = 0.0838;
         double thigh_length = 0.2;
         double calf_length = 0.2;
+        double leg_offset_x = 0.1805;
+        double leg_offset_y = 0.0512;
         Vector3d base2hip_LF_ = Vector3d(0.1805, 0.135, 0.0);
     };
 

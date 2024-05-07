@@ -37,6 +37,7 @@ add_library(${PROJECT_NAME}
   src/inverse_kinematics_hyq2.cc
   src/inverse_kinematics_hyq4.cc
   src/inverse_kinematics_a1.cc
+  src/inverse_kinematics_a1_biped.cc
 )
 
 ## URDF visualizers for all HyQ variants
@@ -60,6 +61,11 @@ target_link_libraries(urdf_visualizer_hyq4
 
 add_executable(urdf_visualizer_a1 src/exe/urdf_visualizer_a1.cc)
 target_link_libraries(urdf_visualizer_a1
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+add_executable(urdf_visualizer_a1_biped src/exe/urdf_visualizer_a1_biped.cc)
+target_link_libraries(urdf_visualizer_a1_biped
   ${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
