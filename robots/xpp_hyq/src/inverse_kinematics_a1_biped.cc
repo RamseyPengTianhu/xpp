@@ -79,6 +79,7 @@ namespace xpp
       ee_pos_H -= base2hip_LF_;
       // q_vec.push_back(leg.GetJointAngles(ee_pos_H, bend));
       q_vec.push_back(leg.GetJointAngles(ee_pos_H, bend, ee, robot_type));
+      // q_vec.push_back(leg.GetJointAngles_foot(ee_pos_H, bend, ee, robot_type));
     }
     // q_vec.push_back(leg.GetJointAngles(pos_B.at(L)));
     // q_vec.push_back(leg.GetJointAngles(pos_B.at(R)));

@@ -178,7 +178,7 @@ namespace xpp
     double beta = -std::acos(n);
     q_Calf = beta;
     double m = (l3 * l3 - lxz * lxz - l2 * l2) / (2 * l2 * lxz);
-    double alpha_1 = std::atan2(lxz, x);
+    double alpha_1 = std::atan2(lyz, x);
     double alpha_2 = -std::acos(m);
     q_Thigh = -sideSign * (M_PI_2 - sideSign * (alpha_1 + alpha_2));
     if (q_Thigh > M_PI_2)
@@ -223,10 +223,24 @@ namespace xpp
     //     << "q_Calf:\n"
     //     << q_Calf << std::endl;
     Eigen::Vector3d joint_angles;
-    joint_angles[0] = q_Hip;
-    joint_angles[1] = q_Thigh;
-    joint_angles[2] = q_Calf;
+    // joint_angles[0] = q_Hip;
+    // joint_angles[1] = q_Thigh;
+    // joint_angles[2] = q_Calf;
     Vector3d test_pos = ForwardKinematics(joint_angles, hip_id, robot_type);
+    Eigen::Matrix3d T1;
+    T1 << 1, 0, 0, 0, std::cos(q_Hip), -std::sin(q_Hip), 0, std::sin(q_Hip), std::cos(q_Hip);
+    Eigen::Matrix3d T2;
+    T2 << std::cos(q_Thigh), 0, std::sin(q_Thigh), 0, 1, 0, -std::sin(q_Thigh), 0, std::cos(q_Thigh);
+    Eigen::Matrix3d T3;
+    T3 << std::cos(q_Calf), 0, std::sin(q_Calf), 0, 1, 0, -std::sin(q_Calf), 0, std::cos(q_Calf);
+    Eigen::Matrix3d T4 = T1 * T2 * T3;
+    double q_Foot = -std::atan2(-T4(2, 0), -std::sqrt(T4(2, 1) * T4(2, 1) + T4(2, 2) * T4(2, 2)));
+    if (q_Foot < -M_PI_2)
+    {
+      q_Foot + M_PI;
+    }
+    // std::cout << "q_Foot:\n"
+    //           << q_Foot << std::endl;
     // std::cout
     //     << "test_pos:\n"
     //     << test_pos << std::endl;
