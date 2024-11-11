@@ -158,9 +158,6 @@ namespace xpp
     x = pos[0];
     y = pos[1];
     z = pos[2];
-    // x = ee_pos_B[X];
-    // y = ee_pos_B[Y];
-    // z = ee_pos_B[Z];
 
     int sideSign = (hip_id == 0 || hip_id == 2) ? 1 : -1;
 
